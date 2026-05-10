@@ -1,0 +1,96 @@
+//FIR LOWPASS using Rectangular window
+clc;
+clear all;
+N = input('enter the order:');
+wc = input('enter the cutoff frequency:');
+a = (N-1)/2;
+for n=1:N
+    if(n-1==a)
+        hd(n)=(wc/%pi);
+    else
+        hd(n) = (sin(wc*(n-1-a)))/(%pi*(n-1-a));
+        
+end
+w(n) =1;
+h(n) = hd(n).*w(n);
+end 
+[m,ph] = frmag(h,256);
+mag = abs(m);
+magdb = 20*log(mag);
+subplot(2,1,1);
+plot(ph/%pi,magdb);
+title('low pass filter')
+
+
+
+//FIR BANDPASS using Hamming window
+clc;
+close;
+N = input('enter the order:');
+wc1 = input('enter the cutoff frequency1:');
+wc2 = input('enter the cutoff frequency2:');
+a = (N-1)/2;
+for n=1:N
+    if(n-1==a)
+        hd(n)=(wc2-wc1/%pi);
+    else
+        hd(n) = ((sin(wc2*(n-1-a)))-sin(wc2*(n-1-a)))/(%pi*(n-1-a));
+        
+end
+w(n) =0.5-0.5*cos((2*%pi*(n-1))/(N-1));
+h(n) = hd(n).*w(n);
+end 
+[m,ph] = frmag(h,256);
+mag = abs(m);
+magdb = 20*log(mag);
+subplot(1,1,1);
+plot(ph/%pi,magdb);
+title('band pass filter')
+
+
+
+//FIR BANDREJECT using hamming window 
+clc;
+close;
+N=input('enter the order');
+wc1=input('enter the cutt off frequency 1');
+wc2=input('enter the cutt off frequency 2');
+a=(N-1)/2;
+for n=1:N
+if(n-1==a)
+hd(n)=1-(wc2-wc1)/%pi;
+else
+hd(n)=((sin(wc1*(n-1-a)))-sin(wc2*(n-1-a))+sin(%pi*(n-1-a)))/(%pi*(n-1-a));
+end
+w(n)=0.54-0.46*cos((2*%pi*(n-1))/(N-1));
+h(n)=hd(n).*w(n);
+end
+[m,ph]=frmag(h,256);
+mag=abs(m);
+magdb=20*log(mag);
+subplot(1,1,1);
+plot(ph/%pi,magdb);
+title('band stop filter')
+
+
+
+//FIR HIGHPASS using Blackmann window
+clc;
+close;
+N=input('enter the order');
+wc=input('enter the cutt off frequency');
+a=(N-1)/2;
+for n=1:N
+if(n-1==a)
+hd(n)=1-(wc/%pi);
+else
+hd(n)=((sin(%pi*(n-1-a)))-sin(wc*(n-1-a)))/(%pi*(n-1-a));
+end
+w(n)=0.42-0.5*cos((2*%pi*(n-1))/(N-1))+0.08*cos((4*%pi*(n-1))/(N-1));
+h(n)=hd(n).*w(n);
+end
+[m,ph]=frmag(h,256);
+mag=abs(m)
+magdb=20*log10(mag);
+plot(ph/%pi,magdb);
+title('Highpass filter')
