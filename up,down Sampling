@@ -1,0 +1,69 @@
+//Up-Sampling:
+
+
+#include<stdio.h> 
+#include<math.h>
+float out1[200], out2[200]; 
+float amp=5,freq=50;
+float fs=5000, t=0.0; 
+int i,j,k,L;
+void main()
+{ 
+L=100; 
+k=2;
+for(i=0;i<=L;i++)
+{
+out1[i]=amp*sin(2*3.14*freq*t); t=t+1/fs;
+}
+for(i=0;i<=(k*L);i++)
+{
+out2[i]=0;
+} 
+i=0;
+for(j=0;j<=(k*L);j=k+j)
+{
+out2[j]=out1[i]; 
+i++;
+}
+for(j=0;j<=(k*L);j++)
+{
+79
+printf("\n %f",out2[j]);
+}
+}
+
+
+
+
+//Down-Sampling:
+
+
+
+
+#include<stdio.h> 
+#include<math.h> float 
+s1[100],s2[50]; float 
+amp=50,freq=50; float 
+fs=1200;
+float t=0.0; 
+int i,j,L,k=2; 
+void main()
+{ 
+L=100;
+for(i=0;i<=100;i++)
+{
+s1[i]=amp*sin(2*3.14*freq*t); 
+t=t+(1/fs);
+}
+for(i=0;i<=(L/k);i++)
+{ 
+s2[i]=0;
+} 
+i=0;
+for(j=0;j<=(L/k);j=j+k)
+{
+s2[i]=s1[j]; 
+i++;
+printf("down Sampled Length: %f\n",s2[i]);
+}
+}
