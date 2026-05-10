@@ -1,0 +1,112 @@
+// High Pass Filter Program
+
+#include <stdio.h>
+#include <math.h>
+#define PI 3.1415
+int n, N, wc, t;
+float wr[64], hp[64], h[64];
+
+void main()
+{
+    printf("Enter no. of samples N = ");
+    scanf("%d", &N);
+
+    printf("Enter cutoff frequency wc = ");
+    scanf("%d", &wc);
+
+    printf("Elements of window function are:\n");
+
+    t = (N - 1) / 2;
+ // Hamming Window
+    for(n = 0; n <= N - 1; n++)
+    {
+        wr[n] = (0.54) - ((0.46) * cos((2 * PI * n) / (N - 1)));
+
+        printf("\nwr[%d] = %f", n, wr[n]);
+    }
+ printf("\n\nElements of filter function are:\n");
+   // Ideal High Pass Filter
+    for(n = 0; n <= N - 1; n++)
+    {
+        if(n == t)
+        {
+            hp[n] = 1 - (wc / PI);
+        }
+        else
+        {
+            hp[n] = (sin(PI * (n - t)) - sin(wc * (n - t))) /
+                    (PI * (n - t));
+        }
+  printf("\nhp[%d] = %f", n, hp[n]);
+    }
+printf("\n\nElements of h(n) are:\n");
+// Final Filter Coefficients
+    for(n = 0; n <= N - 1; n++)
+    {
+        h[n] = wr[n] * hp[n];
+   printf("\nh[%d] = %f", n, h[n]);
+    }
+}
+
+
+
+
+
+
+
+
+
+// WINDOW FUNCTIONS
+
+// Rectangular Window
+wr[n] = 1;
+
+// Hamming Window
+wr[n] = 0.54 - (0.46 * cos((2 * PI * n) / (N - 1)));
+
+// Hanning Window
+wr[n] = 0.5 - (0.5 * cos((2 * PI * n) / (N - 1)));
+
+// Blackman Window
+wr[n] = 0.42 - (0.5 * cos((2 * PI * n) / (N - 1)))
+        + (0.08 * cos((4 * PI * n) / (N - 1)));
+
+
+
+// LOW PASS FILTER
+
+if(n == t)
+    hp[n] = wc / PI;
+else
+    hp[n] = sin(wc * (n - t)) / (PI * (n - t));
+
+
+
+// HIGH PASS FILTER
+
+if(n == t)
+    hp[n] = 1 - (wc / PI);
+else
+    hp[n] = (sin(PI * (n - t)) - sin(wc * (n - t)))
+            / (PI * (n - t));
+
+
+
+// BAND PASS FILTER
+
+if(n == t)
+    hp[n] = (wc2 - wc1) / PI;
+else
+    hp[n] = (sin(wc2 * (n - t)) - sin(wc1 * (n - t)))
+            / (PI * (n - t));
+
+
+
+// BAND STOP FILTER
+
+if(n == t)
+    hp[n] = 1 - ((wc2 - wc1) / PI);
+else
+    hp[n] = (sin(wc1 * (n - t)) - sin(wc2 * (n - t))
+            + sin(PI * (n - t)))
+            / (PI * (n - t));
