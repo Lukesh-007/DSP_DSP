@@ -1,0 +1,81 @@
+// Butterworth Filter Design Program
+
+#include <stdio.h>
+#include <math.h>
+
+#define PI 3.1415
+
+float ap, as, Op, Os, l, e;
+int N;
+
+void main()
+{
+    printf("Enter the value of ap: ");
+    scanf("%f", &ap);
+
+    printf("Enter the value of as: ");
+    scanf("%f", &as);
+
+    printf("Enter the value of Op: ");
+    scanf("%f", &Op);
+
+    printf("Enter the value of Os: ");
+    scanf("%f", &Os);
+
+    // Calculate epsilon (e)
+    e = 1 / pow((pow(ap, 2) - 1), 0.5);
+    printf("The value of e = %f\n", e);
+
+    // Calculate lambda (l)
+    l = 1 / pow((pow(as, 2) - 1), 0.5);
+    printf("The value of l = %f\n", l);
+
+    // Calculate filter order N
+    N = round((log(l / e)) / log(Os / Op));
+
+    printf("\nThe value of N = %d\n", N);
+}
+
+
+
+
+
+
+
+// Chebyshev Filter Design Program
+
+#include <stdio.h>
+#include <math.h>
+
+#define PI 3.1415
+
+float ap, as, Op, Os, l, e;
+int N;
+
+void main()
+{
+    printf("Enter the value of ap: ");
+    scanf("%f", &ap);
+
+    printf("Enter the value of as: ");
+    scanf("%f", &as);
+
+    printf("Enter the value of Op: ");
+    scanf("%f", &Op);
+
+    printf("Enter the value of Os: ");
+    scanf("%f", &Os);
+
+    // Calculate epsilon (e)
+    e = sqrt((1 / pow(ap, 2)) - 1);
+    printf("The value of e = %f\n", e);
+
+    // Calculate lambda (l)
+    l = sqrt((1 / pow(as, 2)) - 1);
+    printf("The value of l = %f\n", l);
+
+    // Calculate filter order N
+    N = round(acosh(l / e) / acosh(Os / Op));
+
+    printf("\nThe value of N = %d\n", N);
+}
