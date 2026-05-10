@@ -1,0 +1,53 @@
+//sine Wave Generation Program
+
+#include <stdio.h>
+#include <math.h>
+#define freq 500
+#define PI 3.1415
+float m[127];
+
+void main()
+{
+    int i;
+    for(i = 0; i < 127; i++)
+    {
+        m[i] = 30000 * sin((2 * PI * freq * i) / 24000);
+        printf("%f\n", m[i]);
+    }
+}
+
+// Cosine Wave Generation Program
+
+#include <stdio.h>
+#include <math.h>
+#define freq 500
+#define PI 3.1415
+float m[127];
+void main()
+{
+    int i;
+    for(i = 0; i < 127; i++)
+    {
+        m[i] = 30000 * cos((2 * PI * freq * i) / 24000);
+        printf("%f\n", m[i]);
+    }
+}
+
+
+
+//ramp Wave Generation Program
+
+#include <stdio.h>
+#include <math.h>
+#define freq 500
+#define PI 3.1415
+float m[127];
+void main()
+{
+    int i;
+    for(i = 0; i < 127; i++)
+    {
+        m[i] = i;
+        printf("%f\n", m[i]);
+    }
+}
